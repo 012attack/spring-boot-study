@@ -19,6 +19,7 @@ public class Account {
     @GeneratedValue
     private Long id;
 
+    @Column(unique = true)
     private String username;
 
 //    @JsonIgnore

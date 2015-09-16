@@ -31,8 +31,15 @@ public class AccountService {
 //        Account account = new Account();
 //        BeanUtils.copyProperties(dto, account);
 
-        // TODO 유효한 username인지 판단
+        String username = dto.getUsername();
+        if (repository.findByUsername(username) != null) {
+            throw new UserDuplicatedException(username);  // 부가적인 정보를 넘길 수 있다.
+        }
+
+
         // TODO password 해싱
+
+
 
         Date now = new Date();
         account.setJoined(now);
