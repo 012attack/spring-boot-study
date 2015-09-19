@@ -21,6 +21,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -87,5 +88,17 @@ public class AccountControllerTest {
 
         result.andDo(print());
         result.andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void getAccounts() throws Exception {
+        AccountDto.Create createDto = new AccountDto.Create();
+        createDto.setUsername("gamgoon");
+        createDto.setPassowrd("password");
+
+        ResultActions result = mockMvc.perform(get("/accounts"));
+
+        result.andDo(print());
+        result.andExpect(status().isOk());
     }
 }
