@@ -75,14 +75,7 @@ public class AccountController {
 
     }
 
-    @ExceptionHandler(UserDuplicatedException.class)
-    public ResponseEntity handleUserDuplicatedException(UserDuplicatedException e) {
-        ErrorResponse errorResponse = new ErrorResponse();
-        errorResponse.setMessage("[" + e.getUsername() + "] 중복 username 입니다.");
-        errorResponse.setCode("duplicated.username.exception");
 
-        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
-    }
 
     // TODO stream() vs parallelStream()
     // TODO HATEOAS

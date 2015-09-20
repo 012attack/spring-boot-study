@@ -1,7 +1,10 @@
 package com.gamgoon.accounts;
 
 import com.fasterxml.jackson.databind.util.BeanUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +17,11 @@ import java.util.Date;
  */
 @Service
 @Transactional
+@Slf4j
 public class AccountService {
+
+//    private Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @Autowired
     private AccountRepository repository;
 
@@ -33,6 +40,7 @@ public class AccountService {
 
         String username = dto.getUsername();
         if (repository.findByUsername(username) != null) {
+            log.error("user duplicated exception, {}", username);
             throw new UserDuplicatedException(username);  // 부가적인 정보를 넘길 수 있다.
         }
 
