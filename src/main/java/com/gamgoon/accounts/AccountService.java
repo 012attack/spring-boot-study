@@ -62,7 +62,7 @@ public class AccountService {
     public Account updateAccount(Long id, AccountDto.Update updateDto) {
         Account account = getAccount(id);
         account.setPassword(updateDto.getPassword());
-        account.setFullName(updateDto.getFulName());
+        account.setFullName(updateDto.getFullName());
         return repository.save(account);
     }
 
@@ -72,5 +72,9 @@ public class AccountService {
             throw new AccountNotFoundException(id);
         }
         return account;
+    }
+
+    public void deleteAccount(Long id) {
+        repository.delete(getAccount(id));
     }
 }

@@ -20,7 +20,7 @@ public class AccountDto {
 
         @NotBlank
         @Size(min = 5)
-        private String passowrd;
+        private String password;
     }
 
     @Data
@@ -35,6 +35,6 @@ public class AccountDto {
     @Data
     public static class Update {
         private String password;
-        private String fulName;
+        private String fullName;
     }
 }

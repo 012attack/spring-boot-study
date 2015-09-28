@@ -134,6 +134,12 @@ public class AccountController {
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 */
+    @RequestMapping(value="/accounts/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity deleteAccount(@PathVariable Long id) {
+        service.deleteAccount(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
     // ResponseStatus 사용
     @ExceptionHandler(UserDuplicatedException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -143,6 +149,7 @@ public class AccountController {
         errorResponse.setCode("duplicated.username.exception");
         return errorResponse;
     }
+
 
     @ExceptionHandler(AccountNotFoundException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)

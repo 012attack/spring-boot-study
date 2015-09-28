@@ -6,3 +6,10 @@
 - [[작명 고민]하이버네이트 get/find류 작명 규약1](http://whiteship.me/?p=11932)
 - spring-data-rest : crud api 를 자동으로 만들어준다?
 - [Test fixtures](https://github.com/junit-team/junit/wiki/Test-fixtures)
+- [WebJars - Web Libraries in Jars](http://www.webjars.org/)
+- Javascript 모듈화 방식?
+    - CommonJs - npm에 의존적
+    - AMD
+    - ES6 Import/Export ?
+    - 이쪽은 다 첨 듣는 얘기라... 구글링 읽을꺼리
+        - [JavaScript 표준을 위한 움직임: CommonJS와 AMD](http://d2.naver.com/helloworld/12864)

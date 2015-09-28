@@ -21,9 +21,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -57,7 +55,7 @@ public class AccountControllerTest {
     public void createAccount() throws Exception{
         AccountDto.Create createDto = new AccountDto.Create();
         createDto.setUsername("gamgoon");
-        createDto.setPassowrd("password");
+        createDto.setPassword("password");
 
         String s = objectMapper.writeValueAsString(createDto);
         System.out.println(s);
@@ -84,7 +82,7 @@ public class AccountControllerTest {
     public void createAccount_BadRequest() throws Exception {
         AccountDto.Create createDto = new AccountDto.Create();
         createDto.setUsername(" ");
-        createDto.setPassowrd("1234");
+        createDto.setPassword("1234");
 
         ResultActions result = mockMvc.perform(post("/accounts")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -108,7 +106,7 @@ public class AccountControllerTest {
     private AccountDto.Create accountCreateDto(){
         AccountDto.Create createDto = new AccountDto.Create();
         createDto.setUsername("gamgoon");
-        createDto.setPassowrd("password");
+        createDto.setPassword("password");
         return createDto;
     }
 
@@ -129,7 +127,7 @@ public class AccountControllerTest {
         Account account = service.createAccount(createDto);
 
         AccountDto.Update updateDto = new AccountDto.Update();
-        updateDto.setFulName("updated gamgoon");
+        updateDto.setFullName("updated gamgoon");
         updateDto.setPassword("pass");
 
         ResultActions result = mockMvc.perform(put("/accounts/" + account.getId())
@@ -138,7 +136,23 @@ public class AccountControllerTest {
 
         result.andDo(print());
         result.andExpect(status().isOk());
-        result.andExpect(jsonPath("$.fulName", is("updated gamgoon")));
-        result.andExpect(jsonPath("$.password", is("pass")));
+        result.andExpect(jsonPath("$.fullName", is("updated gamgoon")));
+//        result.andExpect(jsonPath("$.password", is("pass"))); // 응답에 password 항목이 없다.
+
+    }
+
+    @Test
+    public void deleteAccount() throws Exception {
+        ResultActions result = mockMvc.perform(delete("/accounts/1"));
+        result.andDo(print());
+        result.andExpect(status().isBadRequest());
+
+        AccountDto.Create createDto = accountCreateDto();
+        Account account = service.createAccount(createDto);
+
+        result = mockMvc.perform(delete("/accounts/" + account.getId()));
+        result.andDo(print());
+        result.andExpect(status().isNoContent());
+
     }
 }
