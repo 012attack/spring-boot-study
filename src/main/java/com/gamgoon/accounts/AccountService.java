@@ -7,6 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -55,5 +57,20 @@ public class AccountService {
 
         return repository.save(account);
 
+    }
+
+    public Account updateAccount(Long id, AccountDto.Update updateDto) {
+        Account account = getAccount(id);
+        account.setPassword(updateDto.getPassword());
+        account.setFullName(updateDto.getFulName());
+        return repository.save(account);
+    }
+
+    public Account getAccount(Long id) {
+        Account account = repository.findOne(id);
+        if (account == null){
+            throw new AccountNotFoundException(id);
+        }
+        return account;
     }
 }
