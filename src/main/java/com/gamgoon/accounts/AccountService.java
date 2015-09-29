@@ -9,6 +9,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,6 +29,9 @@ public class AccountService {
     private AccountRepository repository;
 
     @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
     private ModelMapper modelMapper;
 
     public Account createAccount(AccountDto.Create dto) {
@@ -37,15 +41,15 @@ public class AccountService {
 
         Account account = modelMapper.map(dto, Account.class);
 
-//        Account account = new Account();
-//        BeanUtils.copyProperties(dto, account);
-
         String username = dto.getUsername();
         if (repository.findByUsername(username) != null) {
             log.error("user duplicated exception, {}", username);
             throw new UserDuplicatedException(username);  // 부가적인 정보를 넘길 수 있다.
         }
 
+        account.setPassword(passwordEncoder.encode(account.getPassword()));
+//        Account account = new Account();
+//        BeanUtils.copyProperties(dto, account);
 
         // TODO password 해싱
 
@@ -61,7 +65,7 @@ public class AccountService {
 
     public Account updateAccount(Long id, AccountDto.Update updateDto) {
         Account account = getAccount(id);
-        account.setPassword(updateDto.getPassword());
+        account.setPassword(passwordEncoder.encode(updateDto.getPassword()));
         account.setFullName(updateDto.getFullName());
         return repository.save(account);
     }

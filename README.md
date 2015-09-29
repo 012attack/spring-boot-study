@@ -12,4 +12,10 @@
     - AMD
     - ES6 Import/Export ?
     - 이쪽은 다 첨 듣는 얘기라... 구글링 읽을꺼리
-        - [JavaScript 표준을 위한 움직임: CommonJS와 AMD](http://d2.naver.com/helloworld/12864)
+        - [JavaScript 표준을 위한 움직임: CommonJS와 AMD](http://d2.naver.com/helloworld/12864)      
+- React
+    - [Flux?](https://facebook.github.io/flux/docs/overview.html)
+    - [React.js Introduction For People Who Know Just Enough jQuery To Get By](http://reactfordesigners.com/labs/reactjs-introduction-for-people-who-know-just-enough-jquery-to-get-by/)
+- 암호화
+    - [How To Safely Store A Password](http://codahale.com/how-to-safely-store-a-password/)
+    - [안전한 패스워드 저장](http://d2.naver.com/helloworld/318732)
