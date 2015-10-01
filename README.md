@@ -19,3 +19,5 @@
 - 암호화
     - [How To Safely Store A Password](http://codahale.com/how-to-safely-store-a-password/)
     - [안전한 패스워드 저장](http://d2.naver.com/helloworld/318732)
+- spring security
+    - [Preview Spring Security Test: Web Security](https://spring.io/blog/2014/05/23/preview-spring-security-test-web-security)
